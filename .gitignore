@@ -1,0 +1,35 @@
+# Foundry
+smart-contracts/out/
+smart-contracts/cache/
+smart-contracts/broadcast/
+
+# Environment variables
+smart-contracts/.env
+smart-contracts/.env.local
+smart-contracts/.env.*.local
+
+# Node modules (if using any Node.js tooling)
+node_modules/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Coverage
+lcov.info
+coverage/
+
+# Gas reports
+gas-report.txt
+
+# Deployment artifacts
+deployments/ 
