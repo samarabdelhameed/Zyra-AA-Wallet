@@ -2,8 +2,9 @@
 pragma solidity ^0.8.20;
 
 import "forge-std/Test.sol";
-import "../src/validators/ZyraImplementation.sol";
+import "../src/ZyraImplementation.sol";
 import "../src/libraries/ZyraStorage.sol";
+import {PackedUserOperation} from "../lib/account-abstraction/contracts/interfaces/PackedUserOperation.sol";
 
 /**
  * @title ZyraImplementationTest
@@ -23,7 +24,7 @@ contract ZyraImplementationTest is Test {
         entryPoint = address(0x2);
         target = address(0x3);
 
-        implementation = new ZyraImplementation();
+        implementation = new ZyraImplementation(IEntryPoint(entryPoint));
 
         // Initialize the implementation
         bytes memory initData = abi.encode(owner, entryPoint);
@@ -68,8 +69,18 @@ contract ZyraImplementationTest is Test {
     function testValidateUserOp() public {
         vm.prank(entryPoint);
 
-        bytes memory userOp = abi.encode("test");
-        bytes32 userOpHash = keccak256(userOp);
+        PackedUserOperation memory userOp = PackedUserOperation({
+            sender: address(implementation),
+            nonce: 0,
+            initCode: "",
+            callData: "",
+            accountGasLimits: bytes32(0),
+            preVerificationGas: 0,
+            gasFees: bytes32(0),
+            paymasterAndData: "",
+            signature: ""
+        });
+        bytes32 userOpHash = keccak256(abi.encode(userOp));
 
         uint256 validationData = implementation.validateUserOp(
             userOp,
@@ -125,8 +136,18 @@ contract ZyraImplementationTest is Test {
     function testValidateUserOpUnauthorized() public {
         vm.prank(address(0x999));
 
-        bytes memory userOp = abi.encode("test");
-        bytes32 userOpHash = keccak256(userOp);
+        PackedUserOperation memory userOp = PackedUserOperation({
+            sender: address(implementation),
+            nonce: 0,
+            initCode: "",
+            callData: "",
+            accountGasLimits: bytes32(0),
+            preVerificationGas: 0,
+            gasFees: bytes32(0),
+            paymasterAndData: "",
+            signature: ""
+        });
+        bytes32 userOpHash = keccak256(abi.encode(userOp));
 
         vm.expectRevert();
         implementation.validateUserOp(userOp, userOpHash, 0);

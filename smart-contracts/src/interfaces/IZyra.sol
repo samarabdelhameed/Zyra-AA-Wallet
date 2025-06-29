@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity ^0.8.17;
 
+import {PackedUserOperation} from "account-abstraction/interfaces/PackedUserOperation.sol";
+
 /**
  * @title IZyra
  * @notice Main interface for the Zyra Account Abstraction wallet
@@ -41,7 +43,7 @@ interface IZyra {
      * @return validationData Validation data for the operation
      */
     function validateUserOp(
-        bytes calldata userOp,
+        PackedUserOperation calldata userOp,
         bytes32 userOpHash,
         uint256 missingAccountFunds
     ) external returns (uint256 validationData);

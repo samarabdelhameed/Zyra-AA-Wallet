@@ -3,7 +3,7 @@ pragma solidity ^0.8.20;
 
 import "forge-std/Test.sol";
 import "../src/validators/AccountFactory.sol";
-import "../src/validators/ZyraImplementation.sol";
+import "../src/ZyraImplementation.sol";
 import "../src/validators/ZyraProxy.sol";
 
 /**
@@ -20,8 +20,9 @@ contract AccountFactoryTest is Test {
     function setUp() public {
         admin = address(0x1);
         owner = address(0x2);
+        address entryPoint = address(0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789);
 
-        implementation = new ZyraImplementation();
+        implementation = new ZyraImplementation(IEntryPoint(entryPoint));
         factory = new AccountFactory(address(implementation), admin);
     }
 

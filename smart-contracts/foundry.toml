@@ -9,21 +9,19 @@ optimizer_runs = 200
 via_ir = true
 fs_permissions = [{ access = "read", path = "./" }]
 
-# Remappings
+# Remappings for dependencies
 remappings = [
-    "@openzeppelin/=lib/openzeppelin-contracts/",
-    "@account-abstraction/=lib/account-abstraction/",
-    "forge-std/=lib/forge-std/src/"
+    "@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/",
+    "@openzeppelin/contracts-upgradeable/=lib/openzeppelin-contracts-upgradeable/contracts/",
+    "@account-abstraction/contracts/=lib/account-abstraction/contracts/",
+    "forge-std/=lib/forge-std/src/",
+    "erc4626-tests/=lib/openzeppelin-contracts/lib/erc4626-tests/src/",
+    "halmos-cheatcodes/=lib/openzeppelin-contracts/lib/halmos-cheatcodes/src/"
 ]
 
-[rpc_endpoints]
-sepolia = "${SEPOLIA_RPC_URL}"
-fuji = "${AVALANCHE_FUJI_RPC_URL}"
-
-[etherscan]
-sepolia = { key = "${ETHERSCAN_API_KEY}" }
-fuji = { key = "${SNOWTRACE_API_KEY}" }
-
-# Gas reporting
-
-# Test settings
+# Dependencies - forge install will install all of these automatically
+[dependencies]
+forge-std = "foundry-rs/forge-std@v1.9.7"
+openzeppelin-contracts = "OpenZeppelin/openzeppelin-contracts@v5.3.0"
+openzeppelin-contracts-upgradeable = "OpenZeppelin/openzeppelin-contracts-upgradeable@v5.3.0"
+account-abstraction = "eth-infinitism/account-abstraction@v0.8.0"

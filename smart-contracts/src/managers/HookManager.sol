@@ -97,8 +97,10 @@ abstract contract HookManager is Auth, IZyra {
      * @param addr address - Address to check
      * @return bool        - True if the address is a hook, false otherwise
      */
-    function isHook(address addr) external view returns (bool) {
-        return _isHook(addr);
+    function isHook(address addr) public view virtual override returns (bool) {
+        return
+            _validationHooksLinkedList().exists(addr) ||
+            _executionHooksLinkedList().exists(addr);
     }
 
     /**
@@ -228,12 +230,6 @@ abstract contract HookManager is Auth, IZyra {
         (success); // silence unused local variable warning
 
         emit RemoveHook(hook);
-    }
-
-    function _isHook(address addr) internal view override returns (bool) {
-        return
-            _validationHooksLinkedList().exists(addr) ||
-            _executionHooksLinkedList().exists(addr);
     }
 
     function _setContext(address hook, bytes memory context) private {

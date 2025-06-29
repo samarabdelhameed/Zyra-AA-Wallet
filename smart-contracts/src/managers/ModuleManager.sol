@@ -89,7 +89,9 @@ abstract contract ModuleManager is Auth, IZyra {
      * @param addr address - Address to check
      * @return bool - True if the address is a module, false otherwise
      */
-    function isModule(address addr) external view returns (bool) {
+    function isModule(
+        address addr
+    ) public view virtual override returns (bool) {
         return _isModule(addr);
     }
 

@@ -95,14 +95,9 @@ abstract contract OwnerManager is Auth, IZyra {
      * @dev Public Key length must be 64 bytes
      * @param pubKey bytes calldata - new r1 owner to add
      */
-    function resetOwners(
-        bytes calldata pubKey
-    ) external override onlySelfOrModule {
+    function resetOwners(bytes calldata pubKey) public virtual override {
         _r1ClearOwners();
         _k1ClearOwners();
-
-        emit ResetOwners();
-
         _r1AddOwner(pubKey);
     }
 

@@ -4,7 +4,7 @@ pragma solidity ^0.8.20;
 import "../interfaces/IZyraRegistry.sol";
 import "../libraries/Errors.sol";
 import "./ZyraProxy.sol";
-import "./ZyraImplementation.sol";
+import "../ZyraImplementation.sol";
 
 /**
  * @title AccountFactory

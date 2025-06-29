@@ -2,7 +2,7 @@
 pragma solidity ^0.8.20;
 
 import "../interfaces/IZyra.sol";
-import "./ZyraImplementation.sol";
+import "../ZyraImplementation.sol";
 import "./AccountFactory.sol";
 
 /**
